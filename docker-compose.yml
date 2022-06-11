@@ -3,8 +3,10 @@ version: '3'
 services:
   fastapi:
     build: fastapi/
-    ports: 
-      - 8000:8000
+    environment:
+        - PORTFastapi=${PORTFastapi}
+    ports:
+        - ${PORTFastapi}:${PORTFastapi}
     networks:
       - deploy_network
     container_name: fastapi
@@ -13,8 +15,10 @@ services:
     build: streamlit/
     depends_on:
       - fastapi
-    ports: 
-        - 8501:8501
+    environment:
+        - PORTStreamlit=${PORTStreamlit}
+    ports:
+        - ${PORTStreamlit}:${PORTStreamlit}
     networks:
       - deploy_network
     container_name: streamlitg

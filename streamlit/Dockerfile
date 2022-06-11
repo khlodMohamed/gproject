@@ -12,4 +12,6 @@ COPY . /streamlit
 COPY  ./ports.conf /etc/apache2/ports.conf
 COPY  ./apache.conf /etc/apache2/sites-enabled/000-default.conf
 
+# CMD ["sh", "-c", "streamlit run --server.port $PORT /app.py"]
+
 CMD ["streamlit", "run", "app.py"]
