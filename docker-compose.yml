@@ -12,7 +12,9 @@ services:
     container_name: fastapi
 
   streamlit:
-    build: streamlit/
+    build:             
+         dockerfile: ./Dockerfile
+         context: .
     depends_on:
       - fastapi
     environment:

@@ -1,16 +1,16 @@
 FROM python:3.7-slim
 
+
 RUN mkdir /streamlit
 
-COPY requirements.txt /streamlit
+COPY /streamlit/requirements.txt /streamlit
 
 WORKDIR /streamlit
+COPY  /.env /streamlit
 
 RUN pip install -r requirements.txt
 
-COPY . /streamlit
-COPY  ./ports.conf /etc/apache2/ports.conf
-COPY  ./apache.conf /etc/apache2/sites-enabled/000-default.conf
+COPY /streamlit/. /streamlit
 
 # CMD ["sh", "-c", "streamlit run --server.port $PORT /app.py"]
 

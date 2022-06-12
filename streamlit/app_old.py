@@ -1,14 +1,7 @@
 import streamlit as st
 import requests
-import os
-from dotenv import load_dotenv
 
-load_dotenv()
-
-portfastapi = os.getenv('PORTFastapi')
-portfastapi=str(portfastapi)
-print(portfastapi)
-########################################################################
+##########################################################################################
 
 def handle_click_wo_button():
     if st.session_state.kind_of_action:
@@ -16,7 +9,7 @@ def handle_click_wo_button():
     elif st.session_state.disease_chosen:
         st.session_state.type=st.session_state.disease_chosen
 
-########################################################################
+##########################################################################################
         
 def option_chosen(option):
     if option=='Not present':
@@ -28,7 +21,7 @@ def option_chosen(option):
     else:
       return 3
 
-########################################################################
+##########################################################################################
     
 def heart_insert_features():
     
@@ -85,7 +78,7 @@ def heart_insert_features():
       ST_Slope = 2            
      
     input = {"input_list": [Age, Sex, ChestPainType, RestingBP, Cholesterol, FastingBS, RestingECG, MaxHR, ExerciseAngina, Oldpeak, ST_Slope]}
-    url = "http://fastapi:"+str(portfastapi)+"/heart_disease_model"
+    url = "http://fastapi:8000/heart_disease_model"
 
     if form1.form_submit_button('Predict'):
         response = requests.post(url, json = input)
@@ -95,7 +88,7 @@ def heart_insert_features():
             form1.success("Probability to have No Heart Disease: " + response.json()["Probability"] + "%")
     
         
-########################################################################
+##########################################################################################
 
 def breast_cancer_insert_features():
     
@@ -111,7 +104,7 @@ def breast_cancer_insert_features():
     concave_points_worst = form2.number_input('concave points worst', min_value=0.0, step=1e-6, format="%.6f")
     
     input = {"input_list": [area_mean, concavity_mean, concave_points_mean, radius_worst, texture_worst, perimeter_worst, area_worst, concave_points_worst]}
-    url = "http://fastapi:"+portfastapi+"/breast_cancer_model"
+    url = "http://fastapi:8000/breast_cancer_model"
 
     if form2.form_submit_button('Predict'):
         response = requests.post(url, json = input)
@@ -120,9 +113,9 @@ def breast_cancer_insert_features():
         else:
             form2.success("Probability to have No Breast Cancer: " + response.json()["Probability"] + "%")
 
-########################################################################
+##########################################################################################
 
-def erythemato_insert_features():
+def eryhemato_insert_features():
 
     form3 = st.form(key='form3')
 
@@ -147,7 +140,7 @@ def erythemato_insert_features():
     age = form3.number_input('age', min_value=0, step=1)
 
     input = {"input_list": [erythema, scaling, definite_borders, itching, koebner_phenomenon, polygonal_papules, follicular_papules, knee_and_elbow_involvement, family_history, eosinophils_in_the_infiltrate, pnl_infiltrate, fibrosis_of_the_papillary_dermis, acanthosis, hyperkeratosis, parakeratosis, inflammatory_monoluclear_infiltrate, age]}
-    url = "http://fastapi:"+portfastapi+"/eryhemato_model"
+    url = "http://fastapi:8000/eryhemato_model"
 
     if form3.form_submit_button('Predict'):
         response = requests.post(url, json = input)
@@ -164,7 +157,7 @@ def erythemato_insert_features():
         else:
             form3.success("Probability to have Pityriasis Rubra Pilaris: " + response.json()["Probability"] + "%")
 
-########################################################################
+##########################################################################################
 
 def kidney_insert_features():
 
@@ -246,7 +239,7 @@ def kidney_insert_features():
       aanemia = 0
       
     input = {"input_list": [age, blood_pressure, specific_gravity, albumin, sugar, red_blood_cells, pus_cell, pus_cell_clumps, bacteria, blood_glucose_random, blood_urea, serum_creatinine, sodium, potassium, haemoglobin, packed_cell_volume, white_blood_cell_count, red_blood_cell_count, hypertension, diabetes_mellitus, coronary_artery_disease, appetite, peda_edema, aanemia]}
-    url = "http://fastapi:"+portfastapi+"/kidney_model"
+    url = "http://fastapi:8000/kidney_model"
     
     if form4.form_submit_button('Predict'):
         response = requests.post(url, json = input)
@@ -255,7 +248,7 @@ def kidney_insert_features():
         else:
             form4.success("Probability to have No Chronic Kidney Disease: " + response.json()["Probability"] + "%")
 
-########################################################################
+##########################################################################################
 
 def diabetes_insert_features():
     
@@ -271,7 +264,7 @@ def diabetes_insert_features():
     Age = form5.number_input('Age', min_value=0, step=1)
     
     input = {"input_list": [Pregnancies, Glucose, BloodPressure, SkinThickness, Insulin, BMI, DiabetesPedigreeFunction, Age]}
-    url = "http://fastapi:"+portfastapi+"/diabetes_model"
+    url = "http://fastapi:8000/diabetes_model"
     
     if form5.form_submit_button('Predict'):
         response = requests.post(url, json = input)
@@ -280,7 +273,7 @@ def diabetes_insert_features():
         else:
             form5.success("Probability to have No Diabetes: " + response.json()["Probability"] + "%")
         
-########################################################################
+##########################################################################################
 
 def lung_cancer_insert_features():
 
@@ -373,7 +366,7 @@ def lung_cancer_insert_features():
       Chestpain = 0                     
      
     input = {"input_list": [Gender, Age, Smoking, YellowFingers, Anxiety, Peerpressure , ChronicDisease, Fatigue, Allergy, Wheezing, Alcohol, Coughing, Shortnessofbreath, SwallowingDifficulty, Chestpain]}
-    url = "http://fastapi:"+portfastapi+"/lung_cancer_model"
+    url = "http://fastapi:8000/lung_cancer_model"
     
     if form6.form_submit_button('Predict'):
         response = requests.post(url, json = input)
@@ -382,13 +375,13 @@ def lung_cancer_insert_features():
         else:
             form6.success("Probability to have No Lung Cancer: " + response.json()["Probability"] + "%")
         
-########################################################################
+##########################################################################################
 
 def main():
     
     st.set_page_config(page_title="Doctor's Assistant", page_icon=":smile:")
     st.sidebar.title("Diagnosis Prediction")
-    diseases = ['', 'Heart Disease', 'Chronic Kidney Disease', 'Diabetes', 'Breast Cancer', 'Erythemato-Squamous Disease', 'Lung Cancer']
+    diseases = ['', 'Heart Disease', 'Chronic Kidney Disease', 'Diabetes', 'Breast Cancer', 'Eryhemato-Squamous Disease', 'Lung Cancer']
     st.session_state['option'] = st.sidebar.selectbox('Choose a Disease:', diseases, on_change=handle_click_wo_button, key='disease_chosen')
     st.session_state['kind'] = st.sidebar.radio('What kind of action?',['Insert Features', 'More Information'], on_change=handle_click_wo_button, key='kind_of_action')
 
@@ -400,8 +393,8 @@ def main():
         elif st.session_state['option']=='Breast Cancer':
             breast_cancer_insert_features()
                 
-        elif st.session_state['option']=='Erythemato-Squamous Disease':
-            erythemato_insert_features()
+        elif st.session_state['option']=='Eryhemato-Squamous Disease':
+            eryhemato_insert_features()
             
         elif st.session_state['option']=='Chronic Kidney Disease':
             kidney_insert_features()
@@ -418,53 +411,27 @@ def main():
     else:
         
         if st.session_state['option']=='Heart Disease':
-            st.write('A typical goal is to classify the input into one of two states, heart disease or normal according to eleven user-provided features. This dataset was created by combining different datasets already available independently but not combined before. In this dataset, 5 heart datasets are combined over 11 common features which makes it the largest heart disease dataset available so far for research purposes.')           
-            st.image('heart1.png')
-            st.write('The source of the dataset can be found at: https://archive.ics.uci.edu/ml/machine-learningdatabases/heart-disease/')
-            st.write('The final best model used for Heart Disease prediction was found to be the Random Forest Classifier model with all features and an accuracy of 0.913')
-            st.image('heart2.png')
-
+            st.write('heart more info')           
+            
         elif st.session_state['option']=='Breast Cancer':
-            st.write('The Wisconsin Diagnostic Breast Cancer dataset is a real-valued multivariate data that consists of two classes, where each class signifies whether a patient has breast cancer or not. The two categories are: malignant and benign. Each record represents data for one breast cancer case. Features are computed from a digitized image of a fine needle aspirate (FNA) of a breast mass. They describe characteristics of the cell nuclei present in the image.')
-            st.image('breastcancer1.png')
-            st.write('The source of the dataset can be found at: https://archive.ics.uci.edu/ml/datasets/Breast+Cancer+Wisconsin+(Diagnostic)')
-            st.write('The final best model used for Breast Cancer prediction was found to be the Random Forest Classifier model with a feature selection method of Recursive Feature Elimination using 8 features selected out of 30 and an accuracy of 0.9736842105263158.')
-            st.image('breastcancer2.png')
+            st.write('breast cancer more info')
             
-        elif st.session_state['option']=='Erythemato-Squamous Disease':
-            st.write('The differential diagnosis of erythemato-squamous diseases is a real problem in dermatology. They all share the clinical features of erythema and scaling, with very little differences. The diseases in this group are: 1-psoriasis 2- seboreic dermatitis 3-lichen planus 4- pityriasis rosea 5- cronic dermatitis 6- pityriasis rubra pilaris. The goal of erythemato-squamous predection is to classificate between the previous six diseases.')
-            st.image('eryhemato1.jpg')
-            st.write('The source of the dataset can be found at: https://archive.ics.uci.edu/ml/machine-learningdatabases/dermatology/')
-            st.write('The final best model used for Erythemato-Squamous Disease prediction was found to be the Logistic Regression Classifier model with a feature selection method of Pearson Correlation using 17 features selected out of 34 and an accuracy of 0.9090909090909091.')
-            st.image('eryhemato2.jpg')
-            
+        elif st.session_state['option']=='Eryhemato-Squamous Disease':
+            st.write('eryhemato more info')
+
         elif st.session_state['option']=='Chronic Kidney Disease':
-            st.write('The data was taken over a 2-month period in India with 25 features (eg, red blood cell count, white blood cell count, etc). The target is the "classification", which is either "ckd" or "notckd" - ckd=chronic kidney disease. There are 400 rows in the dataset.')
-            st.image('kidney1.jpg')
-            st.write('0: Chronic Kidney Disease       1: No Chronic Kidney Disease')
-            st.write('The source of the dataset can be found at: https://archive.ics.uci.edu/ml/datasets/Chronic_Kidney_Disease')
-            st.write('The final best model used for Chronic Kidney Disease prediction was found to be the Gradient Boost Classifier model with all features and an accuracy of 0.99166.')
-            st.image('kidney2.png')
-                     
+            st.write('kidney more info')
+            
         elif st.session_state['option']=='Diabetes':
-            st.write('The data was collected and made available by "National Institute of Diabetes and Digestive and Kidney Diseases" as part of the Pima Indians Diabetes Database. Several constraints were placed on the selection of these instances from a larger database. In particular, all patients here belong to the Pima Indian heritage (subgroup of Native Americans), and are females of ages 21 and above.')
-            st.image('diabetes1.jpg')
-            st.write('0: No Diabetes       1: Diabetes')
-            st.write('The source of the dataset can be found at: https://www.kaggle.com/datasets/kandij/diabetes-dataset')
-            st.write('The final best model used for Diabetes prediction was found to be the Random forest Classifier model with all features and an accuracy of 0.8226950.')
-            st.image('diabetes2.jpg')
+            st.write('diabetes more info')
             
         elif st.session_state['option']=='Lung Cancer':
-            st.write('The effectiveness of cancer prediction system helps the people to know their cancer risk with low cost and it also helps the people to take the appropriate decision based on their cancer risk status. The data is collected from the website online lung cancer prediction system. The dataset contains 16 attributes.')
-            st.image('lung1.jpg')
-            st.write('The source of the dataset can be found at: https://www.kaggle.com/datasets/mysarahmadbhat/lung-cancer')
-            st.write('The final best model used for Lung Cancer prediction was found to be the Random Forest Classifier model with all features and an accuracy of 0.903614.')
-            st.image('lung2.jpg')
+            st.write('lung cancer more info')
 
         else:
             st.image('doctor.gif')
 
-########################################################################
+##########################################################################################
 
 if __name__ == '__main__':
     main()
