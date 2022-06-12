@@ -1,6 +1,6 @@
 build:
   docker:
-    web: ./Dockerfile
+    web: streamlit/Dockerfile
     backend: fastapi/Dockerfile
     
 # run:

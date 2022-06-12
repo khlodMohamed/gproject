@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-portfastapi = os.getenv('PORTFastapi')
+portfastapi = os.getenv('PORTFastapi',default="8000")
 portfastapi=str(portfastapi)
 print(portfastapi)
 ########################################################################
