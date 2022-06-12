@@ -21,7 +21,7 @@ services:
         - ${PORTStreamlit}:${PORTStreamlit}
     networks:
       - deploy_network
-    container_name: streamlitg
+    container_name: streamlit
 
 networks:
   deploy_network:
