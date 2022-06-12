@@ -1,6 +1,6 @@
 build:
   docker:
-    web: streamlit/Dockerfile.web
+    web: streamlit/Dockerfile.web  #use diffrent docker file to listen to heroku port num
     backend: fastapi/Dockerfile
     
 # run:

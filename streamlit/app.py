@@ -2,10 +2,11 @@ import streamlit as st
 import requests
 import os
 from dotenv import load_dotenv
-
+########################################################################
+#to get fastapi port 
 load_dotenv()
 
-portfastapi = os.getenv('PORTFastapi',default="8000")
+portfastapi = os.getenv('PORTFastapi',default="8000") #for local run
 portfastapi=str(portfastapi)
 print(portfastapi)
 ########################################################################
